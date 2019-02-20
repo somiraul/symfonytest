@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Symfony Test App!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="{{ path('index') }}">Propelrr</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('product') }}"> Products <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('product_add_view') }}">Add Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('test_form') }}">Test Form</a>
+              </li>
+              <li class="nav-item">
+                 <a class="nav-link" href="{{ path('user_form') }}">Add User</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <button class="btn btn-primary getTest">Get Button</button>
+        {% block testblock %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+
+      $(document).ready(function(){
+        $.ajax({
+            method: 'GET',
+            url: "{{ path('test_form') }}",
+            success: function(form){
+                $(".getContainer").html(form);
+            }
+        });
+
+        $("#add-product").click(function(e){
+          e.preventDefault();
+          var prod_name = $(".prod_name").val();
+          var price     = $(".price").val();
+          var qty     = $(".qty").val();
+
+          $.ajax({
+            method: 'POST',
+            url: "{{ path('product_add') }}",
+            data: {'prod_name' : prod_name,'price': price,'qty': qty},
+            success: function(res){
+              console.log(res);
+            }
+          });
+        }); 
+
+        $(".delete").click(function(){
+          alert("This is not working yet!");
+        });
+
+        $(".getTest").click(function(){
+            $.ajax({
+              method: 'GET',
+              url: "{{ path('get_test') }}",
+              success: function(got){
+                alert(got);
+              }
+            });
+        });
+      });
+        
+    </script>
+</html>

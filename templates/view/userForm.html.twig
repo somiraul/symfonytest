@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block testblock %}
+    <div class="container jumbotron">
+        <form>
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <input type="text" class="form-control username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="email" class="form-control email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control password" placeholder="Password">
+            </div>
+            {% for roles in role %}
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input role" data-role="{{ roles.role }}" value="{{ roles.role }}">
+                <label class="form-check-label" for="checkbox">{{ roles.role }}</label>
+            </div>
+            {% endfor %}
+            <div class="form-group">
+                <label for="Secret Question">Secret Question</label>
+                <input type="text" class="form-control secretquestion" placeholder="Secret question">
+            </div>
+            <div class="form-group">
+                <label for="Secret Answer">Secret Answer</label>
+                <input type="text" class="form-control secretanswer" placeholder="Secret answer">
+            </div>
+        </form>
+        <button type="submit" class="btn btn-primary" id="saveUser">Save</button>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+        $("#saveUser").click(function() {
+
+            var username       = $(".username").val();
+            var email          = $(".email").val();
+            var password       = $(".password").val();
+            var secretQuestion = $(".secretquestion").val();
+            var secretAnswer   = $(".secretanswer").val();
+            role               = $(".role:checked").map(function(){
+                $(".role").attr('disabled', 'disabled');
+                return this.value
+            }).get();
+
+            var finalData = {
+                username: username,
+                email: email,
+                password: password,
+                role: role,
+                secretQuestion: secretQuestion,
+                secretAnswer: secretAnswer
+            };
+            var a = JSON.stringify(finalData);
+            console.log(a);
+
+            $.ajax({
+               method: 'POST',
+               url: "{{ path('user_form_submit') }}",
+               data: a,
+               success: function(response){
+                 alert(response);
+                }
+            });
+        });
+
+     </script>
+{% endblock %}

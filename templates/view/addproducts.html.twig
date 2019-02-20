@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Add Products
+{% endblock %}
+{% block testblock %}
+<br/><br/>
+	<div class="container">
+		<div class="jumbotron">
+			<form class="data-container">
+			  <div class="form-group">
+			    <label for="Product_name">Product Name</label>
+			    <input type="text" class="form-control prod_name" aria-describedby="emailHelp" placeholder="Product Name">
+			  </div>
+			  <div class="form-group">
+			  	<label for="Quantity">Quantity</label>
+			    <select class="form-control price">
+			    	<option value="100">100</option>
+			    	<option value="200">200</option>
+			    	<option value="300">300</option>
+			    </select>
+			  </div>
+			  <div class="form-group">
+			    <label for="Price">Price</label>
+			    <input type="number" class="form-control qty" placeholder="Product Price">
+			  </div>
+			  
+			</form>
+			<button class="btn btn-primary " id="add-product">Add Product</button>
+		</div>	
+	</div>
+{% endblock %}

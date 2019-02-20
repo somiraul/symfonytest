@@ -1,0 +1,35 @@
+index:
+    path: /
+    controller: App\Controller\myController::index
+
+product:
+    path: /product
+    controller: App\Controller\ProductController::index    
+
+product_add_view:
+    path: /add/view
+    controller: App\Controller\ProductController::addview
+
+product_add:
+    path: /product/add
+    controller: App\Controller\ProductController::add
+
+product_show:
+    path: /product/show/{id}
+    controller: App\Controller\ProductController::show
+
+test_form:
+    path: /form
+    controller: App\Controller\ProductController::testform
+
+get_test:
+    path: /ajaxGet
+    controller: App\Controller\ProductController::getTest
+
+user_form:
+    path: /userForm
+    controller: App\Controller\UserController::userFormview
+
+user_form_submit:
+    path: /userSubmit
+    controller: App\Controller\UserController::submitUser
