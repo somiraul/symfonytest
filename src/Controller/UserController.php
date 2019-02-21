@@ -5,13 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Roles;
 
-
-use phpDocumentor\Reflection\DocBlock\Serializer;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
@@ -24,27 +20,32 @@ class UserController extends AbstractController
     }
 
     public function submitUser(Request $request){
-            $test = $request->request->all();
-            var_dump($test);
-            die();
         if ($request->getMethod() == 'POST'){
             $data  = $request->request->all();
+            $entityManager = $this->getDoctrine()->getManager();
 
-            $normalizer = [
-                new ObjectNormalizer(),
-            ];
+            $user = new User();
+            $user->setUsername($data['username']);
+            $user->setEmail($data['email']);
+            $user->setPassword($data['password']);
+            $user->setRole($data['role'][0]);
+            $user->setSecretQuestion($data['secretQuestion']);
+            $user->setSecretAnswer($data['secretAnswer']);
 
-            $encoders = [
-                new JsonEncoder(),
-            ];
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-            $serializer = new Serializer($normalizer, $encoders);
-
-            $serializedData = $serializer->serialize($data, 'json');
-
-            var_dump($serializedData);
-            die();
-            return $this->json($data);
+            return new Response("Successfully Added to database");
         }
+    }
+
+    public function userLoginForm(){
+        return $this->render('user/userLoginForm.html.twig');
+    }
+
+    public function userLogin(Request $request){
+        $data = $request->request->all();
+        var_dump($data);
+        die();
     }
 }

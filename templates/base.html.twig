@@ -28,6 +28,9 @@
               <li class="nav-item">
                  <a class="nav-link" href="{{ path('user_form') }}">Add User</a>
               </li>
+              <li class="nav-item">
+                 <a class="nav-link" href="{{ path('user_login') }}">User login</a>
+              </li>
             </ul>
           </div>
         </nav>
@@ -40,34 +43,6 @@
   <script>
 
       $(document).ready(function(){
-        $.ajax({
-            method: 'GET',
-            url: "{{ path('test_form') }}",
-            success: function(form){
-                $(".getContainer").html(form);
-            }
-        });
-
-        $("#add-product").click(function(e){
-          e.preventDefault();
-          var prod_name = $(".prod_name").val();
-          var price     = $(".price").val();
-          var qty     = $(".qty").val();
-
-          $.ajax({
-            method: 'POST',
-            url: "{{ path('product_add') }}",
-            data: {'prod_name' : prod_name,'price': price,'qty': qty},
-            success: function(res){
-              console.log(res);
-            }
-          });
-        }); 
-
-        $(".delete").click(function(){
-          alert("This is not working yet!");
-        });
-
         $(".getTest").click(function(){
             $.ajax({
               method: 'GET',
@@ -78,6 +53,6 @@
             });
         });
       });
-        
+
     </script>
 </html>

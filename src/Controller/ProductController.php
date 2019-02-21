@@ -34,7 +34,7 @@ class ProductController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
-            return new Response("Success even it did fail LOL");
+            return new Response("Successfully added to database");
 
         } else {
             return new Response("The method used to add data is invalid");

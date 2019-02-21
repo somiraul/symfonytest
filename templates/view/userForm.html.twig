@@ -56,13 +56,13 @@
                 secretQuestion: secretQuestion,
                 secretAnswer: secretAnswer
             };
-            var a = JSON.stringify(finalData);
-            console.log(a);
+
+            console.log(finalData);
 
             $.ajax({
                method: 'POST',
                url: "{{ path('user_form_submit') }}",
-               data: a,
+               data: finalData,
                success: function(response){
                  alert(response);
                 }

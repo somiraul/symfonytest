@@ -29,3 +29,31 @@
 		</div>	
 	</div>
 {% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+        $(document).ready(function(){
+
+            $("#add-product").click(function(e){
+                e.preventDefault();
+                var prod_name = $(".prod_name").val();
+                var price     = $(".price").val();
+                var qty     = $(".qty").val();
+
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ path('product_add') }}",
+                    data: {'prod_name' : prod_name,'price': price,'qty': qty},
+                    success: function(res){
+                        console.log(res);
+                        alert(res);
+                    }
+                });
+            });
+        });
+
+    </script>
+
+{% endblock %}

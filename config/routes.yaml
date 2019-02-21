@@ -4,7 +4,7 @@ index:
 
 product:
     path: /product
-    controller: App\Controller\ProductController::index    
+    controller: App\Controller\ProductController::index
 
 product_add_view:
     path: /add/view
@@ -33,3 +33,11 @@ user_form:
 user_form_submit:
     path: /userSubmit
     controller: App\Controller\UserController::submitUser
+
+user_login:
+    path: /login
+    controller: App\Controller\UserController::userLoginForm
+
+login_submit:
+    path: /submitLogin
+    controller: App\Controller\UserController::userLogin
